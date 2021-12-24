@@ -1,4 +1,10 @@
 """
+NOTE
+See readme for important details
+Development started 12-23-21
+v0.1 alpha
+
+Ideas:
 Metal, wood, brocks, some more rare and weaker/stronger than others
 
 """
@@ -14,8 +20,10 @@ debug = 1
 
 # storage
 turn = 1
-players_left = 99
+players_left = 100
 hp = 100
+total_damage_done = 0
+total_damage_received = 0
 sheilds = 0
 kills = 0
 slot1 = "pick"
@@ -47,29 +55,44 @@ main_menu()
 
 
 while True:
+
     def display_turn(): # displays stuff that updates each turn
         global turn
         global players_left
 
         player_kill_count = random.randint(0,4) # decides how many players to off each turn
         players_left = players_left - player_kill_count
-
-        if turn <= 1:   # BUG doesnt disable floowing command after first turn
+        
+        if turn <= 1: 
             print("We droppin' " + random.choice(drop_locations))
 
+        print("Turn: " + str(turn))
         print("Players left: " + str(players_left))
         print("Health: " + str(hp))
         print("Sheilds: " + str(sheilds))
         print("Kills: " + str(kills))
-
-        turn =+ 1
+        turn += 1
     display_turn()
-    input()
+
+    input() 
     cc()
 
-    if players_left <= 0:
-       pass # end game
-    elif hp <=0:
-        pass 
 
+    if players_left <= 1:
+       game_end("win")
+    elif hp <=0:
+        game_end("lose")
+
+
+    def game_end(condition):
+        if condition == "win":
+            print("Poggers you got the dub")
+        else:
+            print("lmao loser you ded")
+
+        print()
+        print("Total kill count: " + str(kills))
+        print("Damage inflicted: " + str(total_damage_done))
+        print("Damage received: " + str(total_damage_received))
+      
 
